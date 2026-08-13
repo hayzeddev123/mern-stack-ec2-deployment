@@ -9,34 +9,6 @@
 
 ---
 
-## Screenshots Evidence
-
-### 1. EC2 Instance Connect Page
-![EC2 Connect](Screenshot%202026-08-11%20153325.png)
-
-### 2. Successful SSH Connection
-![SSH Success](Screenshot%202026-08-11%20154201.png)
-
-### 3. EC2 Instance Details
-![Instance Details](Screenshot%202026-08-11%20154202.png)
-
-### 4. Backend – MongoDB Connected & Server Running
-![MongoDB Connected](Screenshot%202026-08-13%20104206.png)
-
-### 5. Frontend Production Build (Vite)
-![Vite Build](Screenshot%202026-08-13%20104529.png)
-
-### 6. Nginx Permission Errors (before fix)
-![Nginx Errors](Screenshot%202026-08-13%20104618.png)
-
-### 7. PM2 Status – Backend Online
-![PM2 Status](Screenshot%202026-08-13%20104747.png)
-
-### 8. PM2 Startup & Save Success
-![PM2 Startup](Screenshot%202026-08-13%20104828.png)
-
----
-
 ## 1. Introduction
 
 This project involved the deployment of a MERN (MongoDB, Express.js, React, Node.js) stack application on an Amazon Web Services (AWS) EC2 instance. The purpose of the project was to gain practical experience in cloud computing, Linux server administration, web application deployment, database configuration, networking, and reverse-proxy configuration.
@@ -80,6 +52,8 @@ The application was deployed on an Ubuntu-based Amazon EC2 instance. MongoDB Atl
 
 ## 4. EC2 Instance Configuration
 
+An Amazon EC2 instance was created to host the MERN application.
+
 - **Name:** MERN-server
 - **Instance ID:** `i-0e84b7653e6ab3e86`
 - **Instance Type:** t3.small
@@ -89,10 +63,22 @@ The application was deployed on an Ubuntu-based Amazon EC2 instance. MongoDB Atl
 - **Private IP:** `172.31.9.164`
 - **Availability Zone:** eu-north-1c
 
+**EC2 Connect page:**
+
+![EC2 Connect](Screenshot%202026-08-11%20153325.png)
+
+**Instance details in AWS Console:**
+
+![Instance Details](Screenshot%202026-08-11%20154202.png)
+
 SSH connection command used:
 ```bash
 ssh -i "MERN-key.pem" ubuntu@13.48.129.163
 ```
+
+**Successful SSH connection:**
+
+![SSH Success](Screenshot%202026-08-11%20154201.png)
 
 ---
 
@@ -134,12 +120,6 @@ MONGO_URI=mongodb+srv://...
 PORT=5000
 ```
 
-Successful connection output:
-```
-MongoDB connected
-Server running on port 5000
-```
-
 ---
 
 ## 8. Backend Deployment
@@ -151,6 +131,10 @@ npm install express mongoose cors dotenv
 npm install --save-dev nodemon
 node server.js
 ```
+
+**Backend running successfully with MongoDB connected:**
+
+![MongoDB Connected](Screenshot%202026-08-13%20104206.png)
 
 ---
 
@@ -174,6 +158,10 @@ npm run build
 ```
 
 This created the optimized production files in the `dist/` folder.
+
+**Successful production build:**
+
+![Vite Build](Screenshot%202026-08-13%20104529.png)
 
 ---
 
@@ -200,6 +188,10 @@ sudo systemctl restart nginx
 
 **Problem:** `Permission denied` errors when Nginx tried to access files under `/home/ubuntu/`.
 
+**Nginx error logs showing permission issues:**
+
+![Nginx Errors](Screenshot%202026-08-13%20104618.png)
+
 **Solution:**
 ```bash
 sudo chmod 755 /home/ubuntu
@@ -224,7 +216,15 @@ pm2 save
 pm2 startup
 ```
 
-The backend process was confirmed **online** and will restart automatically after reboot.
+**PM2 showing the backend process online:**
+
+![PM2 Status](Screenshot%202026-08-13%20104747.png)
+
+**PM2 startup and save success:**
+
+![PM2 Startup](Screenshot%202026-08-13%20104828.png)
+
+The backend process will now restart automatically after a server reboot.
 
 ---
 
@@ -282,7 +282,7 @@ Solution: Used the available port or stopped the conflicting process.
 Solution: Opened the required port in the Security Group and started Vite with `--host 0.0.0.0`.
 
 **4. Nginx Permission Denied / Internal Server Error**  
-Solution: Adjusted directory permissions with `chmod 755` and restarted Nginx.
+Solution: Adjusted directory permissions with `chmod 755` and restarted Nginx (see screenshot in Section 12).
 
 ---
 
